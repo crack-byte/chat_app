@@ -1,7 +1,6 @@
 import DivideVr from "./Divide";
 import Sidebar from "./Sidebar";
-import MessageList from "./MessageList";
-import Chat from "./Chat";
+import MessageList from "./chat/MessageList";
 
 function Grid() {
     return (
@@ -12,8 +11,6 @@ function Grid() {
                 </div>
                     <DivideVr/>
                     <MessageList/>
-                    <DivideVr/>
-                    <Chat/>
             </div>
         </main>
     );
