@@ -1,6 +1,7 @@
-import DivideVr from "./Divide";
-import Sidebar from "./Sidebar";
-import MessageList from "./chat/MessageList";
+import DivideVr from "../Divide";
+import Sidebar from "../../components/routes/Sidebar";
+import MessageList from "../../components/routes/chat/MessageList";
+import {StompSessionProvider,} from "react-stomp-hooks";
 
 function Grid() {
     return (
@@ -10,7 +11,10 @@ function Grid() {
                     <Sidebar/>
                 </div>
                     <DivideVr/>
+                <StompSessionProvider url={"http://localhost:8080/connect"}>
                     <MessageList/>
+                </StompSessionProvider>
+
             </div>
         </main>
     );

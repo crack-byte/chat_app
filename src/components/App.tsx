@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Grid from "./Grid";
+import CustomRoutes from "./CustomRoutes";
 
 function App() {
   return (
-    <Grid/>
+    <CustomRoutes/>
   );
 }
 
