@@ -1,13 +1,11 @@
 package com.crackbyte.controllers;
 
+import com.crackbyte.dto.MessageDTO;
 import com.crackbyte.services.ChatService;
 import com.crackbyte.util.Response;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -22,8 +20,8 @@ public class ChatController {
         return Response.build(chatService.getRecentChats());
     }
 
-    @GetMapping("/send")
-    public void send(@RequestParam String message) {
+    @PostMapping("/send")
+    public void send(@RequestBody MessageDTO message) {
          chatService.send(message);
     }
 }

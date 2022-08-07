@@ -13,8 +13,7 @@
     flex-flow: column wrap;
     justify-content: space-between;
     width: 100%;
-    margin: 25px 10px;
-    height: calc(100% - 50px);
+    margin: 10px;
     border: var(--border);
     border-radius: 5px;
     background: var(--msger-bg);

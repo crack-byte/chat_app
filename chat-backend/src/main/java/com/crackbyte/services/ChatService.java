@@ -1,6 +1,7 @@
 package com.crackbyte.services;
 
 import com.crackbyte.domain.ChatRoom;
+import com.crackbyte.dto.MessageDTO;
 import com.crackbyte.repositories.ChatRoomRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -37,9 +38,7 @@ public class ChatService {
         }).collect(Collectors.toList());
     }
 
-    public void send(String s) {
-        Map<String, String> map = new HashMap<>();
-        map.put("message", s);
-        simpMessagingTemplate.convertAndSend("/room/test", map);
+    public void send(MessageDTO message) {
+        simpMessagingTemplate.convertAndSend("/room/test", message);
     }
 }

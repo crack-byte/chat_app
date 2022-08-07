@@ -8,17 +8,15 @@ const rightMsgClassNames = ['msg', 'right-msg'].join(' ')
 const leftMsgClassNames = ['msg', 'left-msg'].join(' ')
 
 function send(message: any) {
-    axios.get('http://localhost:8080/chats/send?message='+message)
+    axios.post('http://localhost:8080/chats/send',message)
         .then(function (response) {
-            console.log('aslikdpiasjd')
         });
 }
 
 function ChatBox(props: any) {
     const [messages, addMessage]: any = useState([]);
-    const [show, setShow] = useState(props.show);
     const [message, setMessage] = useState("");
-
+    const chatRoom = props.chatRoom;
     const scrollToBottom = () => {
         const element = document.getElementById(String(messages.length - 1));
         if (element != null) {
@@ -26,22 +24,20 @@ function ChatBox(props: any) {
         }
     }
     useSubscription("/room/test", (m) => {
-        addMessage([...messages, {
-            "guid": "542165d6-26d1-4b5e-bcf9-f48f246de297",
-            "name": props.name,
-            "message": JSON.parse(m.body).message,
-        }])
-        console.log(m)
+        const m1 = JSON.parse(m.body);
+        m1.name = props.name;
+        console.log(m1)
+        addMessage([...messages, m1])
     });
     useEffect(() => {
         scrollToBottom()
     }, [messages]);
 
     return (
-        <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white msger" style={{width: '60%'}}>
+        <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white msger" style={{width: '63%'}}>
             <div className="msger-chat">
                 {props.show && messages.map((_: any, index: any) => (
-                    <Message show={show} message={_} name={props.name} index={index}/>
+                    <Message show={true} message={_} name={props.name} index={index}/>
                 ))}
                 <div id="end"/>
             </div>
@@ -55,10 +51,13 @@ function ChatBox(props: any) {
                 />
                 <button type="submit" className="msger-send-btn" onClick={() => {
                     if (message.length > 0) {
-                        setShow(false);
-                        send(message)
+                        send({
+                            "message":message,
+                            "sender":"",
+                            "receiver":chatRoom.uuid,
+                            "timestamp":new Date().getTime()
+                        })
                         setMessage('');
-                        setShow(true);
                     }
                 }}>Send
                 </button>
