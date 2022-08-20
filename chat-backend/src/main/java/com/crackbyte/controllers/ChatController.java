@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/chats")
+@RequestMapping("/chat")
 public class ChatController {
     private final ChatService chatService;
 
@@ -24,4 +24,5 @@ public class ChatController {
     public void send(@RequestBody MessageDTO message) {
          chatService.send(message);
     }
+
 }

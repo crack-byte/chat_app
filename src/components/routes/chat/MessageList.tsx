@@ -12,14 +12,14 @@ function MessageList() {
     let activeItemClasses = ['list-group-item', 'list-group-item-action', 'py-3', 'active', 'lh-sm'].join(' ');
     const d = new Date();
     const day = weekday[d.getDay()];
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const [active, setActive] = useState(0);
     const [chatsRooms, setChatRoom] = useState([]);
-    const [chat, setChat] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:8080/chats/recent')
+        axios.get('http://localhost:8080/chat/recent')
             .then(function (response) {
                 setChatRoom(response.data.data);
+                setShow(true);
             });
     }, [show]);
     return (
@@ -34,9 +34,7 @@ function MessageList() {
                         <div key={index.toString()}>
                             <a className={index === active ? activeItemClasses : itemClasses} href="#"
                                aria-current="true" onClick={() => {
-                                setShow(false);
                                 setActive(index);
-                                setShow(true);
                             }}>
                                 <div className="d-flex align-items-center justify-content-between "
                                      style={{width: '90%'}}>
@@ -51,7 +49,8 @@ function MessageList() {
                 </div>
             </div>
             <DivideVr/>
-            <ChatBox key={active} show={show} chatRoom={chatsRooms[active]} name="Admin"/>
+            {show ? <ChatBox key={active} show={show} chatRoom={chatsRooms[active]} name="Admin"/> :
+                <div></div>}
         </>
     );
 }
